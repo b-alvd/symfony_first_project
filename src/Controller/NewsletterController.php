@@ -2,17 +2,30 @@
 
 namespace App\Controller;
 
+use App\Entity\NewsletterEmail;
+use App\Form\NewletterType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class NewsletterController extends AbstractController
 {
     #[Route('/newsletter/subscribe', name: 'newsletter_subscribe')]
-    public function index(): Response
+    public function subscribe(Request $request, EntityManagerInterface $em): Response
     {
+        $newsletterEmail = new NewsletterEmail();
+        $form = $this->createForm(NewletterType::class, $newsletterEmail);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($newsletterEmail);
+            $em->flush();
+        }
+
         return $this->render('newsletter/subscribe.html.twig', [
-            'controller_name' => 'NewsletterController',
+            'form' => $form
         ]);
     }
 }

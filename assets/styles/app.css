@@ -6,29 +6,6 @@ body {
     background-color: skyblue;
 }
 
-nav {
-    height: 50px;
-    background-color: rgb(0, 100, 130);
-}
-nav ul {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding-top: 11px;
-}
-nav ul li {
-    list-style-type: none;
-}
-nav ul li a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-}
-nav ul li a:hover {
-    text-decoration: underline;
-    color: skyblue;
-}
-
 h1 {
     text-align: center;
     color: white;

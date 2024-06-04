@@ -1,7 +1,8 @@
-<nav>
-    <ul>
-        <li><a href="{{ path('app_index') }}">Accueil</a></li>
-        <li><a href="{{ path('app_about') }}">À propos</a></li>
-        <li><a href="{{ path('categories_list')}}">Catégories</a></li>
+<nav class="h-50 bg-gray-900">
+    <ul class="flex align-items-center justify-content-around p-5">
+        <li><a class="inline-block px-4 py-2 text-lg font-semibold hover:text-blue-500 hover:underline" href="{{ path('app_index') }}">Accueil</a></li>
+        <li><a class="inline-block px-4 py-2 text-lg font-semibold hover:text-blue-500 hover:underline" href="{{ path('app_about') }}">À propos</a></li>
+        <li><a class="inline-block px-4 py-2 text-lg font-semibold hover:text-blue-500 hover:underline" href="{{ path('categories_list')}}">Catégories</a></li>
+        <li><a class="inline-block px-4 py-2 text-lg font-semibold hover:text-blue-500 hover:underline" class="btn btn-primary" href="{{ path('newsletter_subscribe')}}">Newsletter</a></li>
     </ul>
 </nav>
