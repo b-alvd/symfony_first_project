@@ -1,0 +1,17 @@
+{# index/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {# Il est possible de rappeler le contenu du bloc parent avec la fonction parent() #}
+  {{ parent() }} - Hello TestController!
+{% endblock %}
+
+{% block navbar %} {{ parent() }} {% endblock %}
+
+{% block body %}
+<div>
+  {# On peut afficher la valeur de variables passées par le contrôleur à la vue #}
+  <h1 class="text-3xl text-center">Hello {{ controller_name }}! ✅</h1>
+  <img class="mx-auto" src="{{ asset('images/pixpulse-text.png') }}" alt="">
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{# index/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {# Il est possible de rappeler le contenu du bloc parent avec la fonction parent() #}
+  Catégorie
+{% endblock %}
+
+{% block navbar %} {{ parent() }} {% endblock %}
+
+{% block body %}
+  <h1>{{ category.name }}</h1>
+  {% for article in category.article %}
+    {% if article.id %}
+      <a href="{{ path('app_item', { id: article.id }) }}">{{ article.title }}</a>
+    {% else %}
+      <p>Aucun article</p>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
