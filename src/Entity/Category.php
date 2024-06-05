@@ -19,9 +19,9 @@ class Category
     private ?string $name = null;
 
     /**
-     * @var Collection<int, article>
+     * @var Collection<int, Article>
      */
-    #[ORM\OneToMany(targetEntity: article::class, mappedBy: 'category')]
+    #[ORM\OneToMany(targetEntity: Article::class, mappedBy: 'category')]
     private Collection $article;
 
     public function __construct()
@@ -47,14 +47,14 @@ class Category
     }
 
     /**
-     * @return Collection<int, article>
+     * @return Collection<int, Article>
      */
     public function getArticle(): Collection
     {
         return $this->article;
     }
 
-    public function addArticle(article $article): static
+    public function addArticle(Article $article): static
     {
         if (!$this->article->contains($article)) {
             $this->article->add($article);
@@ -64,7 +64,7 @@ class Category
         return $this;
     }
 
-    public function removeArticle(article $article): static
+    public function removeArticle(Article $article): static
     {
         if ($this->article->removeElement($article)) {
             // set the owning side to null (unless already changed)
