@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\NewsletterEmailRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: NewsletterEmailRepository::class)]
 class NewsletterEmail
@@ -12,8 +13,10 @@ class NewsletterEmail
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
+    
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "L'email est obligatoire")]
+    #[Assert\Email(message: "L'email {{ value }} n'est pas valide")]
     private ?string $email = null;
 
     public function getId(): ?int
