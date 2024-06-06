@@ -30,8 +30,7 @@ class NewsletterController extends AbstractController
                 ->from('basilealeveque@gmail.com')
                 ->to($newsletterEmail->getEmail())
                 ->subject('Inscription à la Newsletter')
-                ->text('Mon gâté ! Merci pour ton inscription à notre Newsletter avec ton email: '.$newsletterEmail->getEmail().'!')
-                ->html('<p>Mon gâté ! Merci pour ton inscription à notre Newsletter avec ton email: '.$newsletterEmail->getEmail().'!</p>');
+                ->text('Mon gâté ! Merci pour ton inscription à notre Newsletter avec ton email: '.$newsletterEmail->getEmail().'!');
             $mailer ->send($email);
 
             return $this->redirectToRoute('newsletter_thanks');
