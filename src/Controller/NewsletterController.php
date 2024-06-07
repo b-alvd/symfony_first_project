@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\NewsletterEmail;
 use App\Form\NewletterType;
+use App\Newsletter\EmailNotification;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,9 +16,8 @@ use Symfony\Component\Routing\Attribute\Route;
 class NewsletterController extends AbstractController
 {
     #[Route('/newsletter/subscribe', name: 'newsletter_subscribe')]
-    public function subscribe(Request $request, EntityManagerInterface $em, MailerInterface $mailer): Response
+    public function subscribe(Request $request, EntityManagerInterface $em, EmailNotification $emailNotification): Response
     {
-        
         $newsletterEmail = new NewsletterEmail();
         $form = $this->createForm(NewletterType::class, $newsletterEmail);
 
@@ -26,12 +26,7 @@ class NewsletterController extends AbstractController
             $em->persist($newsletterEmail);
             $em->flush();
 
-            $email = (new Email())
-                ->from('basilealeveque@gmail.com')
-                ->to($newsletterEmail->getEmail())
-                ->subject('Inscription à la Newsletter')
-                ->text('Mon gâté ! Merci pour ton inscription à notre Newsletter avec ton email: '.$newsletterEmail->getEmail().'!');
-            $mailer ->send($email);
+            $emailNotification->sendConfirmationEmail($newsletterEmail);
 
             return $this->redirectToRoute('newsletter_thanks');
         }
