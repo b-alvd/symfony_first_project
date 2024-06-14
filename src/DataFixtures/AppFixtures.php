@@ -3,15 +3,22 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
+use App\Entity\User;
 use DateTime;
 use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
     private const NAME_CATEGORY = ["Films", "Séries", "Jeux vidéos", "Infos"];
-    public function load(ObjectManager $manager): void
+
+    public function __construct(private UserPasswordHasherInterface $hasher)
+    {
+    }
+
+    public function load(ObjectManager $manager, ): void
     {
         $faker = \Faker\Factory::create('fr_FR');
 
@@ -32,6 +39,23 @@ class AppFixtures extends Fixture
                 ->setCategory($faker->randomElement($arrayCategory));
             $manager->persist($article);
         }
+
+
+        $user = new User();
+        $user 
+            ->setEmail('bobby@gmail.com')
+            ->setPassword($this->hasher->hashPassword($user, 'bobby'));
+
+        $manager->persist($user);
+
+        $admin = new User();
+        $admin 
+            ->setEmail('admin_bobby@gmail.com')
+            ->setPassword($this->hasher->hashPassword($admin, 'bobby'))
+            ->setRoles(['ROLE_ADMIN']);
+
+        $manager->persist($admin);
+
 
         $manager->flush();
     }
