@@ -15,11 +15,11 @@ class Article
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['articles:read'])]
+    #[Groups(['articles:read', 'categories:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['articles:read'])]
+    #[Groups(['articles:read', 'categories:read', 'article:read'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -27,7 +27,7 @@ class Article
     private ?string $content = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(['articles:read'])]
+    #[Groups(['articles:read', 'article:read'])]
     #[Context([DateTimeNormalizer::FORMAT_KEY => 'd/m/Y'])]
     private ?\DateTimeInterface $created_at = null;
 
