@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\ApiToken;
 use App\Entity\Article;
 use App\Entity\User;
 use DateTime;
@@ -13,10 +14,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AppFixtures extends Fixture
 {
     private const NAME_CATEGORY = ["Films", "Séries", "Jeux vidéos", "Infos"];
-
-    public function __construct(private UserPasswordHasherInterface $hasher)
-    {
-    }
 
     public function load(ObjectManager $manager, ): void
     {
@@ -44,17 +41,22 @@ class AppFixtures extends Fixture
         $user = new User();
         $user 
             ->setEmail('bobby@gmail.com')
-            ->setPassword($this->hasher->hashPassword($user, 'bobby'));
+            ->setPassword('bobby');
 
         $manager->persist($user);
 
         $admin = new User();
         $admin 
             ->setEmail('admin_bobby@gmail.com')
-            ->setPassword($this->hasher->hashPassword($admin, 'bobby'))
+            ->setPassword('bobby')
             ->setRoles(['ROLE_ADMIN']);
 
         $manager->persist($admin);
+
+        $apiToken = new ApiToken();
+        $apiToken->setToken('nZ21wWWmHfF5e');
+
+        $manager->persist($apiToken);
 
 
         $manager->flush();
